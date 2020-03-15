@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
+import banderas from '../images';
 
 const DetalleCivilizacion = () => {
   useParams();
@@ -8,6 +9,7 @@ const DetalleCivilizacion = () => {
   const { id } = useParams();
 
   const [civilizacion, setCivilizacion] = useState([]);
+  const civ = civilizacion.civilization_bonus;
 
   useEffect(() => {
     const obtenerDatos = async () => {
@@ -22,15 +24,24 @@ const DetalleCivilizacion = () => {
   }, [id]);
 
   return (
-    <div>
-      <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src="holder.js/100px180" />
+    <div className="container">
+      <Card style={{ width: '25rem' }} className="justify-content-center">
+        <Card.Img variant="top" src={banderas[civilizacion.id]} />
         <Card.Body>
           <Card.Title>{civilizacion.name}</Card.Title>
           <Card.Text>
-            <p>Civilization Bonus: {civilizacion.civilization_bonus}</p>
-            <br />
-            <p>Team Bonus:{civilizacion.team_bonus}</p>
+            <hr />
+            <h6>{civilizacion.expansion}</h6>
+            <hr />
+            <h6>{civilizacion.army_type}</h6>
+            <hr />
+            <div>
+              <h6>Civilization Bonus:</h6>
+              <ul>{civ && civ.map((item, i) => <li key={i}>{item}</li>)}</ul>
+            </div>
+            <hr />
+            <h6>Team Bonus:</h6>
+            <p> {civilizacion.team_bonus}</p>
           </Card.Text>
         </Card.Body>
       </Card>
