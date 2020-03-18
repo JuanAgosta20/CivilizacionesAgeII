@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState, Fragment } from 'react';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import Carousel from 'react-bootstrap/Carousel';
+import FondosPueblos from '../ImagesPueblos.js';
+import DetalleCivilizacion from './DetalleCivilizacion';
 
 const Civilizaciones = () => {
   const [equipo, setEquipo] = useState([]);
 
   useEffect(() => {
-    //console.log('useEffect');
     obtenerDatos();
   }, []);
 
@@ -18,18 +20,28 @@ const Civilizaciones = () => {
   };
 
   return (
-    <div>
-      <h1>Civilizaciones</h1>
-      <ul>
-        {equipo.map((item) => (
-          <li key={item.id}>
-            <Link to={`/civilizaciones/${item.id}`}>
-              {item.name} - {item.expansion} - {item.army_type}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Fragment>
+      <header>
+        <Carousel>
+          {equipo.map((pueblo, i) => (
+            <Carousel.Item key={i}>
+              <img
+                className="d-block w-100"
+                src={FondosPueblos[i]}
+                alt="Third slide"
+              />
+              <Carousel.Caption>
+                <Router>
+                  <Link to={`/civilizaciones/${pueblo.id}`}>
+                    <h3>{pueblo.name}</h3>
+                  </Link>
+                </Router>
+              </Carousel.Caption>
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </header>
+    </Fragment>
   );
 };
 
