@@ -1,11 +1,14 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import Carousel from 'react-bootstrap/Carousel';
+import { Carousel } from 'react-bootstrap';
 import FondosPueblos from '../ImagesPueblos.js';
 import DetalleCivilizacion from './DetalleCivilizacion';
 
 const Civilizaciones = () => {
   const [equipo, setEquipo] = useState([]);
+  const [index, setIndex] = useState(0);
+
+  var civilizacion = equipo[index];
+  console.log(civilizacion);
 
   useEffect(() => {
     obtenerDatos();
@@ -19,10 +22,14 @@ const Civilizaciones = () => {
     setEquipo(users.civilizations);
   };
 
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
+
   return (
     <Fragment>
       <header>
-        <Carousel>
+        <Carousel onSelect={handleSelect}>
           {equipo.map((pueblo, i) => (
             <Carousel.Item key={i}>
               <img
@@ -31,16 +38,13 @@ const Civilizaciones = () => {
                 alt="Third slide"
               />
               <Carousel.Caption>
-                <Router>
-                  <Link to={`/civilizaciones/${pueblo.id}`}>
-                    <h3>{pueblo.name}</h3>
-                  </Link>
-                </Router>
+                <h1 className="text-light">{pueblo.name}</h1>
               </Carousel.Caption>
             </Carousel.Item>
           ))}
         </Carousel>
       </header>
+      <DetalleCivilizacion index={index} />
     </Fragment>
   );
 };

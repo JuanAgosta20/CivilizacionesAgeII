@@ -1,12 +1,6 @@
 import React, { Fragment } from 'react';
 import Civilizaciones from './componentes/Civilizaciones';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import DetalleCivilizacion from './componentes/DetalleCivilizacion';
 
 function App() {
